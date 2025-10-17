@@ -29,7 +29,7 @@ const announcements = [
 
 export default function Announcements() {
   return (
-    <section id="announcements" className="relative border-t border-blue-900/60 bg-blue-975">
+    <section id="announcements" className="relative border-t border-blue-900/60 bg-blue-950">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="mb-8 flex items-center justify-between">
           <div className="flex items-center gap-2">

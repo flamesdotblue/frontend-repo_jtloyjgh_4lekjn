@@ -10,7 +10,7 @@ function App() {
       <Hero />
 
       {/* About Section */}
-      <section id="about" className="relative bg-blue-975">
+      <section id="about" className="relative bg-blue-950">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="grid items-start gap-10 md:grid-cols-2">
             <div>
@@ -43,7 +43,7 @@ function App() {
       </section>
 
       {/* Faculty Anchor (placeholder section for navigation) */}
-      <section id="faculty" className="relative border-t border-blue-900/60 bg-blue-975">
+      <section id="faculty" className="relative border-t border-blue-900/60 bg-blue-950">
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold text-white sm:text-3xl">Faculty</h2>
           <p className="mt-2 text-blue-200/90">Meet our dedicated team of educators and researchers.</p>

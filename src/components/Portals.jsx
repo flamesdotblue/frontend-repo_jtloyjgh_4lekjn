@@ -39,7 +39,7 @@ const portalData = [
 
 export default function Portals() {
   return (
-    <section id="portals" className="relative bg-blue-975">
+    <section id="portals" className="relative bg-blue-950">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="mb-10 flex items-end justify-between">
           <div>

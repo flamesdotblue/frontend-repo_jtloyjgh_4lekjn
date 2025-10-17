@@ -1,18 +1,55 @@
-import Spline from '@splinetool/react-spline';
+import { useState, useEffect, Suspense } from 'react';
 import { ArrowRight, Shield, BookOpen, Megaphone } from 'lucide-react';
+import Spline from '@splinetool/react-spline';
+
+function ErrorBoundary({ fallback, children }) {
+  const [hasError, setHasError] = useState(false);
+
+  // Capture async/runtime errors from Spline render
+  useEffect(() => {
+    const onError = (e) => {
+      // If any unhandled error bubbles up from WebGL/Spline, fall back gracefully
+      setHasError(true);
+    };
+    window.addEventListener('error', onError);
+    window.addEventListener('unhandledrejection', onError);
+    return () => {
+      window.removeEventListener('error', onError);
+      window.removeEventListener('unhandledrejection', onError);
+    };
+  }, []);
+
+  if (hasError) return fallback;
+  return children;
+}
 
 export default function Hero() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   return (
     <section className="relative h-[80vh] min-h-[520px] w-full overflow-hidden bg-blue-950" aria-label="Department hero">
-      {/* 3D Scene Background */}
+      {/* 3D Scene Background with safe fallbacks */}
       <div className="absolute inset-0">
-        <Spline
-          scene="https://prod.spline.design/6y1d6eH-8Nn3sCBd/scene.splinecode"
-          style={{ width: '100%', height: '100%' }}
-        />
+        <ErrorBoundary
+          fallback={
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(30,58,138,0.9),rgba(2,6,23,1))]" />
+          }
+        >
+          {mounted ? (
+            <Suspense fallback={<div className="absolute inset-0 bg-blue-950" />}>
+              <Spline
+                scene="https://prod.spline.design/6y1d6eH-8Nn3sCBd/scene.splinecode"
+                style={{ width: '100%', height: '100%' }}
+              />
+            </Suspense>
+          ) : (
+            <div className="absolute inset-0 bg-blue-950" />
+          )}
+        </ErrorBoundary>
       </div>
 
-      {/* Gradient overlays to enhance readability */}
+      {/* Gradient overlays to enhance readability (do not block Spline interaction) */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-blue-950/60 via-blue-950/50 to-blue-950/90" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-blue-950 to-transparent" />
 
